@@ -1,6 +1,6 @@
 # FeedGenerator
 
-This repo hosts the source code for the process which generates BuzzFeed articles for "oursite.com
+This repo hosts the source code for the process which generates BuzzFeed articles for *oursite.com*
 
 ## Requirements
 
