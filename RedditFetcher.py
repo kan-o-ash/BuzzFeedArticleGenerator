@@ -3,6 +3,9 @@ import requests
 import json
 import re
 from collections import OrderedDict
+import indicoio
+import operator
+indicoio.config.api_key = '783b213a056b15affaef0fc6200cc4e2'
 
 class RedditFetcher:
   def getThreads(self, numThreads):
@@ -65,5 +68,10 @@ class RedditFetcher:
         maxLength += 50
     return entries
 
+  def getKeywords(self, text):
+	keywords = {}
+	keywords = indicoio.keywords(text)
+	sorted_keywords = sorted(keywords.items(), key=operator.itemgetter(0))
+	return sorted_keywords
 
-#TODO:Create list entries by decreasing constraints, until enough entries are chosen
+	

@@ -22,6 +22,6 @@ for sub in submissions:
     comments = myobj.gatherAllEntries(10, sub.url)
     for key in comments:
         #print str(comments[key].body)
-        content.append({'body': comments[key].body, 'gif_url': '', 'score': comments[key].score})
+        content.append({'body': comments[key].body, 'gif_url':'', 'keywords': myobj.getKeywords(comments[key].body), 'score': comments[key].score})
     interface_obj.insertByContent(sub.title, content)
  
