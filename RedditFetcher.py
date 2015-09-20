@@ -5,6 +5,10 @@ import re
 from collections import OrderedDict
 
 class RedditFetcher:
+  def getThreads(self, numThreads):
+    r = praw.Reddit('test')
+    subreddit = r.get_subreddit('askreddit')
+    return subreddit.get_hot(limit=numThreads)
   
   def fetchComments(self, thread_url):
     r = praw.Reddit('test')
@@ -60,8 +64,6 @@ class RedditFetcher:
         minScore -= 250
         maxLength += 50
     return entries
-
-
 
 
 #TODO:Create list entries by decreasing constraints, until enough entries are chosen
