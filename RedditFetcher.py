@@ -2,6 +2,7 @@ import praw
 import requests
 import json
 import re
+from collections import OrderedDict
 
 class RedditFetcher:
   
@@ -11,7 +12,7 @@ class RedditFetcher:
     self.title = submission.title
     return submission.comments
 
-  def getTopComments(self, thread_url, limit=10):
+  def getTopComments(self, thread_url, limit):
     comments = self.fetchComments(thread_url)
     comments = comments[:limit if len(comments) > limit else len(comments)-1]
 
@@ -35,6 +36,32 @@ class RedditFetcher:
 
   def isQualityPost(self, comment, maxCommentLength, minScore):
     #Algorithm to determine if a post is good enough to use
-    return ((len(comment.body) < maxCommentLength) & (comment.score > minScore)) 
+    notTooLong = len(comment.body) < maxCommentLength
+    isPopularPost = comment.score > minScore
+
+    return notTooLong & isPopularPost
+
+  def gatherAllEntries(self, totalEntries, myUrl):
+    entries = {}
+    coms =  self.getTopComments(myUrl, 50)
+
+    #initial threshold for choice
+    minScore = 2000
+    maxLength = 50
+
+    while len(entries) < totalEntries:
+        for com in coms:
+            if len(entries) > totalEntries:
+                break
+            if (self.isQualityPost(com, maxLength, minScore) & (com.name not in entries)):
+                entries[com.name] = com
+        if ((minScore < 0) & (maxLength > 505)):
+            break
+        minScore -= 250
+        maxLength += 50
+    return entries
+
+
+
 
 #TODO:Create list entries by decreasing constraints, until enough entries are chosen
