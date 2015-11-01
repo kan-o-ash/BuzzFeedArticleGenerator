@@ -26,12 +26,6 @@ class RedditFetcher:
     comments_sorted = sorted(comments, key=lambda object1: object1.score, reverse=True)
 
     return comments_sorted
-  
-  def generateTitle(self, thread_url):
-    r = praw.Reddit('test')
-    submission = r.get_submission(url=thread_url)
-    title = submission.title
-    return title
 
   def analyzeTitle(self, text):
     url = "https://services.open.xerox.com/bus/op/fst-nlp-tools/PartOfSpeechTaggingString?inputtext=text&language=text"
@@ -58,8 +52,7 @@ class RedditFetcher:
 
     while len(entries) < totalEntries:
         for com in coms:
-            if len(entries) > totalEntries:
-                break
+
             if (self.isQualityPost(com, maxLength, minScore) & (com.name not in entries)):
                 entries[com.name] = com
         if ((minScore < 0) & (maxLength > 505)):

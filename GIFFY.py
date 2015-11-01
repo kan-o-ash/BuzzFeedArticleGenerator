@@ -36,3 +36,7 @@ class GIFFY:
 
     return resp['data'][0]['images']['original']['url']
 
+
+  def addGIF(self, item):
+    # TO DO
+    pass
