@@ -1,4 +1,4 @@
-class Item:
+class Item(object):
 	
 	def __init__(self, text, score=None, gif_url="", original_url=""):
 		self.score = score

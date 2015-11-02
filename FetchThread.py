@@ -2,7 +2,7 @@ import praw
 from Article import Article
 from Item import Item
 
-class FetchThread:
+class FetchThread(object):
 
 	# Main method used to get thread details from Reddit
 	def getArticle(self, url):

@@ -1,4 +1,4 @@
-class CommitArticle:
+class CommitArticle(object):
 
 	def qualityArticle(self, article):
 

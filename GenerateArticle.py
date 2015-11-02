@@ -1,4 +1,4 @@
-class GenerateArticle:
+class GenerateArticle(object):
 
 	def processTitle(self, article):
 		return
