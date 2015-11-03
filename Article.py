@@ -4,7 +4,7 @@ class Article:
 		self.title = title
 		self.original_url = url
 		self.score = score
-		self.items = items or []
+		self.content = items
 
 	def getItem(self, idx):
 		pass
