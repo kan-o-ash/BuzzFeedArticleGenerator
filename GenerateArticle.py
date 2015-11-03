@@ -21,7 +21,7 @@ class GenerateArticle(object):
     def addGifs(self, article):
         gif = GifFinder()
         for idx, item in enumerate(article.content):
-            item['gif_url'] = gif.getGIF(item['text'])
+            item['gif_url'] = gif.getGifForText(item['text'])
 
     def generate(self, article):
         self.processComments(article)

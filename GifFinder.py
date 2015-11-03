@@ -46,7 +46,7 @@ class GifFinder(object):
     return resp['data'][0]['images']['original']['url']
 
 
-  def getGIF(self, text):
+  def getGifForText(self, text):
     # TO DO
     keywords = self.getKeywords(text)
     top_word = self.getTopKeyword(keywords)
