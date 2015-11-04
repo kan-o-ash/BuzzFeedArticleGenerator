@@ -1,6 +1,5 @@
 import praw
 from Article import Article
-from Item import Item
 
 class FetchThread(object):
 
