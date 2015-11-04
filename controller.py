@@ -11,7 +11,7 @@ class Controller:
         article = fetcher.getArticle(url)
 
         gen = GenerateArticle()
-        gen.generate(article)sud
+        gen.generate(article)
 
         interface = ArticleCommit()
         interface.commit(article)
