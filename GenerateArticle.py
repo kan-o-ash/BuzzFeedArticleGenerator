@@ -6,7 +6,7 @@ class GenerateArticle(object):
         return
 
     def goodComment(self, item):
-        if item['gif_keywordCertainty'] > 0.15:
+        if item['gif_keywordCertainty'] > 0.20:
             return True
         else:
             return False

@@ -1,6 +1,8 @@
 import urllib2, json
 import indicoio
 import operator
+import giphypop
+
 indicoio.config.api_key = '783b213a056b15affaef0fc6200cc4e2'
 
 
@@ -41,11 +43,16 @@ class GifFinder(object):
   def findGIF(self, word):
     """ return gif_url matching keywords """
     giffy_api_key = "dc6zaTOxFJmzC"
-    url = "http://api.giphy.com/v1/gifs/search?q=%s&api_key=%s" %(word, giffy_api_key)
-    resp = json.loads(self.getResponse(url))
-
-    # BAD FORM
-    return resp['data'][0]['images']['original']['url']
+    
+    g = giphypop.Giphy()
+    g.api_key = giffy_api_key
+ 
+    imgs = [x for x in g.search(term=word, limit=1)]
+    if len(imgs):
+        return imgs[0].media_url
+    else:
+        return 0 
+    
 
 
   def getGifDataForText(self, text):
@@ -58,7 +65,10 @@ class GifFinder(object):
     gifData = {}
     gifData['gifURL'] = self.findGIF(keyword)
     gifData['gifKeyword'] = keyword
-    gifData['keywordCertainty'] = certainty
+    if gifData['gifURL'] == 0:
+        gifData['keywordCertainty'] = 0
+    else:
+        gifData['keywordCertainty'] = certainty
 
     return gifData
 
