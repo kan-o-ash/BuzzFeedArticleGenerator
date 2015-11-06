@@ -33,8 +33,10 @@ class GifFinder(object):
       if keywords[key] > max:
         max = keywords[key]
         top = key
-
-    return top
+    top_keyword = {}
+    top_keyword['keyword'] = top
+    top_keyword['certainty'] = max
+    return top_keyword
 
   def findGIF(self, word):
     """ return gif_url matching keywords """
@@ -46,11 +48,18 @@ class GifFinder(object):
     return resp['data'][0]['images']['original']['url']
 
 
-  def getGifForText(self, text):
+  def getGifDataForText(self, text):
     # TO DO
     keywords = self.getKeywords(text)
-    top_word = self.getTopKeyword(keywords)
+    top_keyword = self.getTopKeyword(keywords)
+    keyword = top_keyword['keyword']
+    certainty = top_keyword['certainty']
 
-    return self.findGIF(top_word) 
+    gifData = {}
+    gifData['gifURL'] = self.findGIF(keyword)
+    gifData['gifKeyword'] = keyword
+    gifData['keywordCertainty'] = certainty
+
+    return gifData
 
 

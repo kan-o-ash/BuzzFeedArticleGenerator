@@ -17,4 +17,3 @@ class Article:
 
 	def getMoreEntries(self):
 		pass
-

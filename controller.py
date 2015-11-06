@@ -18,7 +18,10 @@ class Controller:
 
 
     def run(self):
-        url = "https://www.reddit.com/r/AskReddit/comments/3qynmv/you_gain_the_ability_to_put_a_30s_waiting_period/"
+        url = "https://www.reddit.com/r/AskReddit/comments/3qv3dy/whats_only_fun_the_first_time/"
+        #url = "https://www.reddit.com/r/AskReddit/comments/3r2siv/what_was_your_biggest_shit_my_parents_were_right/"
+        #url = "https://www.reddit.com/r/AskReddit/comments/3rmbnh/what_was_the_best_thing_one_person_ruined_for_the/"
+        #url = "https://www.reddit.com/r/AskReddit/comments/3rli7o/what_is_a_completely_ridiculous_fact_that_any/"
         
         self.createArticle(url)
 

@@ -6,7 +6,7 @@ class FetchThread(object):
 
     # Main method used to get thread details from Reddit
     def getArticle(self, url):
-        sub = self.red_api.get_submission(url=url)
+        sub = self.red_api.get_submission(url=url, comment_sort='top')
 
         items = []
         for idx in range(len(sub.comments)-1):
