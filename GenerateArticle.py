@@ -6,12 +6,9 @@ class GenerateArticle(object):
         return
 
     def goodComment(self, item):
-        if item['gif_keywordCertainty'] > 0.20:
-            return True
-        else:
-            return False
+        return item['gif_keywordCertainty'] > 0.20
 
-    def processComments(self, article):
+    def processItems(self, article):
         final_items = []
 
         for item in article.content:
@@ -19,7 +16,6 @@ class GenerateArticle(object):
                 final_items.append(item)
 
         article.content = final_items
-        
 
     def addGifs(self, article):
         gif = GifFinder()
@@ -30,11 +26,6 @@ class GenerateArticle(object):
             item['gif_keywordCertainty'] = gifData['keywordCertainty']
 
     def generate(self, article):
-
         self.addGifs(article)
-
-        self.processComments(article)
-
+        self.processItems(article)
         self.processTitle(article)
-
-        return

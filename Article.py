@@ -1,4 +1,3 @@
-
 class Article:
 	def __init__(self, title, url, score, items=None) :
 		self.title = title
