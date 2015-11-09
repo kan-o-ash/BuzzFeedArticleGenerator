@@ -12,7 +12,6 @@ class GenerateArticle(object):
     def removeEditText(self, item):
         if item['edited']:
             cleaned = re.sub(r'(e|E)dit.*', "", item['text'])
-            print item['text'],cleaned
             item['text'] = cleaned
         return item
 
