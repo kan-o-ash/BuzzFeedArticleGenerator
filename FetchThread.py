@@ -12,7 +12,8 @@ class FetchThread(object):
             com = sub.comments[idx]
             item = {
                 'text':  com.body,
-                'score': com.score
+                'score': com.score,
+                'edited': com.edited
             }
             items.append(item)
         

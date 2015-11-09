@@ -1,4 +1,5 @@
 from GifFinder import GifFinder
+import re
 
 class GenerateArticle(object):
 
@@ -8,10 +9,18 @@ class GenerateArticle(object):
     def goodComment(self, item):
         return item['gif_keywordCertainty'] > 0.20
 
+    def removeEditText(self, item):
+        if item['edited']:
+            cleaned = re.sub(r'(e|E)dit.*', "", item['text'])
+            print item['text'],cleaned
+            item['text'] = cleaned
+        return item
+
     def processItems(self, article):
         final_items = []
 
         for item in article.content:
+            item = self.removeEditText(item)
             if self.goodComment(item):
                 final_items.append(item)
 
