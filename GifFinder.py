@@ -44,7 +44,10 @@ class GifFinder(object):
         g = giphypop.Giphy()
         g.api_key = giffy_api_key
      
-        imgs = [x for x in g.search(term=word, limit=1)]
+        if word is not None:
+            imgs = [x for x in g.search(term=word, limit=1)]
+        else:
+            return 0
         if len(imgs):
             return imgs[0].media_url
         else:
