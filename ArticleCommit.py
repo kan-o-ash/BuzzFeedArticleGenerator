@@ -8,8 +8,10 @@ class ArticleCommit(object):
         self.articles_collection = client.meteor.articles
 
     def qualityArticle(self, article):
-
-        return True
+        if len(article.items) > 10 :
+            return True
+        else :
+        return False
 
     def commit(self, article):
         if not self.qualityArticle(article):
