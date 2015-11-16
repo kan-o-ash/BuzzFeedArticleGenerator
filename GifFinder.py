@@ -23,7 +23,11 @@ class GifFinder(object):
         return content
   
     def getKeywords(self, text):
-        return indicoio.keywords(text)
+        try:
+            keywords = indicoio.keywords(text)
+        except:
+            return None
+        return keywords
 
     def getTopKeyword(self, keywords):
         max = 0
@@ -59,6 +63,9 @@ class GifFinder(object):
 
         if text is not None:
             keywords = self.getKeywords(text)
+            if not keywords:
+                return None
+
             top_keyword = self.getTopKeyword(keywords)
             keyword = top_keyword['keyword']
             certainty = top_keyword['certainty']
@@ -67,9 +74,7 @@ class GifFinder(object):
             gifData['gifKeyword'] = keyword
             gifData['keywordCertainty'] = certainty
 
-        else:
-            gifData['gifURL'] = None
-            gifData['gifKeyword'] = None
-            gifData['keywordCertainty'] = 0
+            return gifData
 
-        return gifData
+        else:
+            return None;

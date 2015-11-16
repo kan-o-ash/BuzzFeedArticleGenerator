@@ -7,8 +7,7 @@ class GenerateArticle(object):
         return
 
     def goodComment(self, item):
-        if item['gif_url'] is not None:
-            return item['gif_keywordCertainty'] > 0.20
+            return item.has_key('gif_url') and item['gif_keywordCertainty'] > 0.20
 
     def removeEditText(self, item):
         if item['edited']:
@@ -30,9 +29,11 @@ class GenerateArticle(object):
         gif = GifFinder()
         for idx, item in enumerate(article.content):
             gifData = gif.getGifDataForText(item['text'])
-            item['gif_url'] = gifData['gifURL']
-            item['gif_keyword'] = gifData['gifKeyword']
-            item['gif_keywordCertainty'] = gifData['keywordCertainty']
+
+            if gifData is not None:
+                item['gif_url'] = gifData['gifURL']
+                item['gif_keyword'] = gifData['gifKeyword']
+                item['gif_keywordCertainty'] = gifData['keywordCertainty']
 
     def generate(self, article):
         self.addGifs(article)
