@@ -23,7 +23,11 @@ class GifFinder(object):
         return content
   
     def getKeywords(self, text):
-        return indicoio.keywords(text)
+        try:
+            keywords = indicoio.keywords(text)
+        except:
+            return None
+        return keywords
 
     def getTopKeyword(self, keywords):
         max = 0
@@ -44,28 +48,33 @@ class GifFinder(object):
         g = giphypop.Giphy()
         g.api_key = giffy_api_key
      
-        if word is not None:
+        if word:
             imgs = [x for x in g.search(term=word, limit=1)]
         else:
-            return 0
+            return None
         if len(imgs):
             return imgs[0].media_url
         else:
-            return 0 
+            return None
 
     def getGifDataForText(self, text):
         # TO DO
-        keywords = self.getKeywords(text)
-        top_keyword = self.getTopKeyword(keywords)
-        keyword = top_keyword['keyword']
-        certainty = top_keyword['certainty']
-
         gifData = {}
-        gifData['gifURL'] = self.findGIF(keyword)
-        gifData['gifKeyword'] = keyword
-        if gifData['gifURL'] == 0:
-            gifData['keywordCertainty'] = 0
-        else:
+
+        if text:
+            keywords = self.getKeywords(text)
+            if not keywords:
+                return None
+
+            top_keyword = self.getTopKeyword(keywords)
+            keyword = top_keyword['keyword']
+            certainty = top_keyword['certainty']
+
+            gifData['gifURL'] = self.findGIF(keyword)
+            gifData['gifKeyword'] = keyword
             gifData['keywordCertainty'] = certainty
 
-        return gifData
+            return gifData
+
+        else:
+            return None;
