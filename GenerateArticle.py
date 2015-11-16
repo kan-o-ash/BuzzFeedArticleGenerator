@@ -36,4 +36,5 @@ class GenerateArticle(object):
     def generate(self, article):
         self.addGifs(article)
         self.processItems(article)
+        article.setURL()
         self.processTitle(article)
