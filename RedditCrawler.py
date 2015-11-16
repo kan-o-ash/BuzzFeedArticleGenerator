@@ -1,7 +1,7 @@
 import praw
 from Article import Article
 
-class FetchThread(object):
+class RedditCrawler(object):
 
     # Main method used to get thread details from Reddit
     def getArticle(self, url):
@@ -20,6 +20,10 @@ class FetchThread(object):
         article = Article(sub.title, url, sub.score, items)
 
         return article
+    
+    def getURLWeeklyTop(self, count):
+        submissions = self.red_api.get_subreddit('askreddit').get_top_from_week(limit=count)
+        return [x.url for x in submissions]
 
     def __init__(self):
         self.red_api = praw.Reddit('BuzzFeedBot')
