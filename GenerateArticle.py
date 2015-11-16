@@ -7,7 +7,8 @@ class GenerateArticle(object):
         return
 
     def goodComment(self, item):
-        return item['gif_keywordCertainty'] > 0.20
+        if item['gif_url'] is not None:
+            return item['gif_keywordCertainty'] > 0.20
 
     def removeEditText(self, item):
         if item['edited']:

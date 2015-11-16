@@ -47,25 +47,29 @@ class GifFinder(object):
         if word is not None:
             imgs = [x for x in g.search(term=word, limit=1)]
         else:
-            return 0
+            return None
         if len(imgs):
             return imgs[0].media_url
         else:
-            return 0 
+            return None
 
     def getGifDataForText(self, text):
         # TO DO
-        keywords = self.getKeywords(text)
-        top_keyword = self.getTopKeyword(keywords)
-        keyword = top_keyword['keyword']
-        certainty = top_keyword['certainty']
-
         gifData = {}
-        gifData['gifURL'] = self.findGIF(keyword)
-        gifData['gifKeyword'] = keyword
-        if gifData['gifURL'] == 0:
-            gifData['keywordCertainty'] = 0
-        else:
+
+        if text is not None:
+            keywords = self.getKeywords(text)
+            top_keyword = self.getTopKeyword(keywords)
+            keyword = top_keyword['keyword']
+            certainty = top_keyword['certainty']
+
+            gifData['gifURL'] = self.findGIF(keyword)
+            gifData['gifKeyword'] = keyword
             gifData['keywordCertainty'] = certainty
+
+        else:
+            gifData['gifURL'] = None
+            gifData['gifKeyword'] = None
+            gifData['keywordCertainty'] = 0
 
         return gifData
