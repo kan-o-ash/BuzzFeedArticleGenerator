@@ -1,5 +1,4 @@
 from GifFinder import GifFinder
-import nltk
 import re
 
 class GenerateArticle(object):
