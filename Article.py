@@ -28,8 +28,6 @@ class Article:
         else:
             url = self.title
 
-        print url
-        
         p = re.compile("[^ a-zA-Z0-9_]")
         url = p.sub("", url)
 
