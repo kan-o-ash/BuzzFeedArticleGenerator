@@ -48,7 +48,7 @@ class GifFinder(object):
         g = giphypop.Giphy()
         g.api_key = giffy_api_key
      
-        if word is not None:
+        if word:
             imgs = [x for x in g.search(term=word, limit=1)]
         else:
             return None
@@ -61,7 +61,7 @@ class GifFinder(object):
         # TO DO
         gifData = {}
 
-        if text is not None:
+        if text:
             keywords = self.getKeywords(text)
             if not keywords:
                 return None

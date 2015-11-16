@@ -30,7 +30,7 @@ class GenerateArticle(object):
         for idx, item in enumerate(article.content):
             gifData = gif.getGifDataForText(item['text'])
 
-            if gifData is not None:
+            if gifData:
                 item['gif_url'] = gifData['gifURL']
                 item['gif_keyword'] = gifData['gifKeyword']
                 item['gif_keywordCertainty'] = gifData['keywordCertainty']
