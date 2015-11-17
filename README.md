@@ -1,6 +1,7 @@
 # FeedGenerator
 
-This repo hosts the source code for the process which generates BuzzFeed articles for *oursite.com*
+This repo hosts the python code which automatically generates BuzzFeed-style articles from content on the web.
+See it live: http://buzzfeedbot.xyz.
 
 ## Requirements
 
