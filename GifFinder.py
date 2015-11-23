@@ -10,18 +10,6 @@ class GifFinder(object):
     def __init__(self):
         pass
 
-    def getResponse(self, url):
-        try:
-            response = urllib2.urlopen(url)
-            content = response.read()
-        except urllib2.HTTPError, e:
-            print "Error code: " + str(e)
-            if e.getcode() == 500:
-                content = e.read()
-        else:
-            return ""
-        return content
-  
     def getKeywords(self, text):
         try:
             keywords = indicoio.keywords(text)
@@ -52,6 +40,7 @@ class GifFinder(object):
             imgs = [x for x in g.search(term=word, limit=1)]
         else:
             return None
+
         if len(imgs):
             return imgs[0].media_url
         else:
@@ -61,20 +50,18 @@ class GifFinder(object):
         # TO DO
         gifData = {}
 
-        if text:
-            keywords = self.getKeywords(text)
-            if not keywords:
-                return None
+        if not text:
+            return None
 
-            top_keyword = self.getTopKeyword(keywords)
-            keyword = top_keyword['keyword']
-            certainty = top_keyword['certainty']
+        keywords = self.getKeywords(text)
+        if not keywords:
+            return None
 
-            gifData['gifURL'] = self.findGIF(keyword)
-            gifData['gifKeyword'] = keyword
-            gifData['keywordCertainty'] = certainty
+        top_keyword = self.getTopKeyword(keywords)
+        keyword = top_keyword['keyword']
 
-            return gifData
+        gifData['gifURL'] = self.findGIF(keyword)
+        gifData['gifKeyword'] = keyword
+        gifData['keywordCertainty'] = top_keyword['certainty']
 
-        else:
-            return None;
+        return gifData
