@@ -3,6 +3,7 @@ import re
 class Article:
     def __init__(self, title, url, score, items=None) :
         self.original_title = title
+        self.title = title
         self.original_url = url
         self.score = score
         self.content = items
