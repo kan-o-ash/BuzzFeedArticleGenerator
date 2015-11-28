@@ -20,9 +20,17 @@ class RedditCrawler(object):
         article = Article(sub.title, url, sub.score, items)
 
         return article
+
+    def getURLDailyTop(self, count):
+        submissions = self.red_api.get_subreddit('askreddit').get_top_from_day(limit=count)
+        return [x.url for x in submissions]
     
     def getURLWeeklyTop(self, count):
         submissions = self.red_api.get_subreddit('askreddit').get_top_from_week(limit=count)
+        return [x.url for x in submissions]
+
+    def getURLMonthlyTop(self, count):
+        submissions = self.red_api.get_subreddit('askreddit').get_top_from_month(limit=count)
         return [x.url for x in submissions]
 
     def __init__(self):
