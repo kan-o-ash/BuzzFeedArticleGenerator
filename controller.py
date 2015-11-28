@@ -6,23 +6,34 @@ from Article import Article
 import time
 
 class Controller:
-    def createArticle(self, url):
+    def createArticle(self, url, min_amount, threshold):
         crawler = RedditCrawler()
         article = crawler.getArticle(url)
 
         gen = GenerateArticle()
-        gen.generate(article)
+        gen.generate(article, threshold)
 
         interface = ArticleCommit()
-        interface.commit(article)
+        interface.commit(article, min_amount)
 
-
-    def run(self):
+    def daily_run(self, limit, min_amount, threshold):
         crawler = RedditCrawler()
-        weeklyTopURLs = crawler.getURLWeeklyTop(10)
+        dailyTopURLs = crawler.getURLDailyTop(limit)
+
+        for url in dailyTopURLs :
+            self.createArticle(url, min_amount, threshold)
+
+    def weekly_run(self, limit, min_amount, threshold):
+        crawler = RedditCrawler()
+        weeklyTopURLs = crawler.getURLWeeklyTop(limit)
 
         for url in weeklyTopURLs :
-            self.createArticle(url)
+            self.createArticle(url, min_amount, threshold)
 
-mycontroller = Controller()
-mycontroller.run()
+    def monthly_run(self, limit, min_amount, threshold):
+        crawler = RedditCrawler()
+        monthlyTopURLs = crawler.getURLMonthlyTop(limit)
+
+        for url in monthlyTopURLs :
+            self.createArticle(url, min_amount, threshold)
+

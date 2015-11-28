@@ -6,8 +6,8 @@ class GenerateArticle(object):
     def processTitle(self, article):
         return
 
-    def goodComment(self, item):
-            return item.has_key('gif_url') and item['gif_keywordCertainty'] > 0.20
+    def goodComment(self, item, threshold):
+            return item.has_key('gif_url') and item['gif_keywordCertainty'] > threshold
 
     def removeEditText(self, item):
         if item['edited']:
@@ -15,12 +15,12 @@ class GenerateArticle(object):
             item['text'] = cleaned
         return item
 
-    def processItems(self, article):
+    def processItems(self, article, threshold):
         final_items = []
 
         for item in article.content:
             item = self.removeEditText(item)
-            if self.goodComment(item):
+            if self.goodComment(item, threshold):
                 final_items.append(item)
 
         article.content = final_items
@@ -35,8 +35,8 @@ class GenerateArticle(object):
                 item['gif_keyword'] = gifData['gifKeyword']
                 item['gif_keywordCertainty'] = gifData['keywordCertainty']
 
-    def generate(self, article):
+    def generate(self, article, threshold):
         self.addGifs(article)
-        self.processItems(article)
+        self.processItems(article, threshold)
         article.setURL()
         self.processTitle(article)

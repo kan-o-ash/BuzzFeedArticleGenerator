@@ -7,14 +7,14 @@ class ArticleCommit(object):
 
         self.articles_collection = client.meteor.articles
 
-    def qualityArticle(self, article):
-        if len(article.content) > 10 :
+    def qualityArticle(self, article, min_amount):
+        if len(article.content) > min_amount :
             return True
         else :
             return False
 
-    def commit(self, article):
-        if not self.qualityArticle(article):
+    def commit(self, article, min_amount):
+        if not self.qualityArticle(article, min_amount):
             return
 
         article_dict = article.__dict__
