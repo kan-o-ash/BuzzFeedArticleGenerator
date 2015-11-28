@@ -2,7 +2,7 @@ import re
 
 class Article:
     def __init__(self, title, url, score, items=None) :
-        self.title = title
+        self.original_title = title
         self.original_url = url
         self.score = score
         self.content = items
@@ -20,13 +20,13 @@ class Article:
         pass
 
     def setTitle(self, title):
-        self.title = title
+        self.original_title = title
 
     def setURL(self, text=None):
         if text:
             url = text
         else:
-            url = self.title
+            url = self.original_title
 
         p = re.compile("[^ a-zA-Z0-9_]")
         url = p.sub("", url)
