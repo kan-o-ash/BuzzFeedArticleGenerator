@@ -26,6 +26,6 @@ def author():
         mycontroller.monthly_run(num_to_look_at, min_entries_in_article, certainty_threshold/100.00)
     else:
          return 'Argument 4: Frequency must be one of (daily, weekly or monthly)'
-return 'Success'
+    return 'Success'
 result = author()
 print result
